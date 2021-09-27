@@ -1,0 +1,67 @@
+ScreenManager:
+    Card1:
+    Card2:
+    Card3:
+
+
+<CardBoxLayout@BoxLayout>:
+    orientation: "vertical"
+    size: root.width, root.height
+
+<WordLabel@Label>:
+    font_size: 32
+<NextButton@Button>:
+    text: "next"
+    font_size: 32
+<CheckButton@Button>:
+    text: "check"
+    font_size: 32
+
+
+<Card1>:
+    name: "first"
+    CardBoxLayout:
+        WordLabel:
+            text: root.word
+        TextInput:
+            id: input1
+            multiline: False
+            readonly: False
+        CheckButton:
+            on_press: root.check()
+        NextButton:
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "second"
+
+<Card2>:
+    name: "second"
+    CardBoxLayout:
+        WordLabel:
+            text: root.word
+        TextInput:
+            id: input2
+            multiline: False
+            readonly: False
+        CheckButton:
+            on_press: root.check()
+        NextButton:
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "third"
+
+<Card3>:
+    name: "third"
+    CardBoxLayout:
+        WordLabel:
+            text: root.word
+        TextInput:
+            id: input3
+            multiline: False
+            readonly: False
+        CheckButton:
+            on_press: root.check()
+        NextButton:
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "first"
