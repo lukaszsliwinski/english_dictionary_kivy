@@ -5,7 +5,7 @@ ScreenManager:
 
 
 <CardBoxLayout@BoxLayout>:
-    orientation: "vertical"
+    orientation: 'vertical'
     size: root.width, root.height
 
 
@@ -22,10 +22,10 @@ ScreenManager:
 
 # Buttons
 <NextButton@Button>:
-    text: "next"
+    text: 'next'
     font_size: 32
 <CheckButton@Button>:
-    text: "check"
+    text: 'check'
     font_size: 32
 
 
@@ -36,7 +36,7 @@ ScreenManager:
 
 
 <Card1>:
-    name: "first"
+    name: 'card1'
     CardBoxLayout:
         WordLabel:
             text: root.word
@@ -46,17 +46,19 @@ ScreenManager:
             on_press: root.check()
         AnswerLabel:
             id: answer1
-            text: ""
+            text: ''
         ResultLabel:
             id: result1
-            text: "0 / 20"
+            text: '0'
         NextButton:
             on_release:
-                root.manager.transition.direction = "left"
-                app.root.current = "second"
+                root.pass_result()
+                root.manager.transition.direction = 'left'
+                app.root.current = 'card2'
+
 
 <Card2>:
-    name: "second"
+    name: 'card2'
     CardBoxLayout:
         WordLabel:
             text: root.word
@@ -64,13 +66,19 @@ ScreenManager:
             id: input2
         CheckButton:
             on_press: root.check()
+        AnswerLabel:
+            id: answer2
+            text: ''
+        ResultLabel:
+            id: result2
         NextButton:
             on_release:
-                root.manager.transition.direction = "left"
-                app.root.current = "third"
+                root.pass_result()
+                root.manager.transition.direction = 'left'
+                app.root.current = 'card3'
 
 <Card3>:
-    name: "third"
+    name: 'card3'
     CardBoxLayout:
         WordLabel:
             text: root.word
@@ -78,7 +86,13 @@ ScreenManager:
             id: input3
         CheckButton:
             on_press: root.check()
+        AnswerLabel:
+            id: answer3
+            text: ''
+        ResultLabel:
+            id: result3
         NextButton:
             on_release:
-                root.manager.transition.direction = "left"
-                app.root.current = "first"
+                root.pass_result()
+                root.manager.transition.direction = 'left'
+                app.root.current = 'card1'
