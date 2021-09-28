@@ -1,55 +1,63 @@
 from kivy.app import App
-# from kivy.uix.widget import Widget
-# from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty
 
-base_dict = {"kwestia" : ["issue", "matter"],
-             "dowód" : ["evidence"],
-             "prawie" : ["almost"],
-            }
+import csv, random
 
-key_list = []
+# Create dictionary from csv file
+with open('dictionary.csv', mode='r', encoding='utf-8') as infile:
+    reader = csv.reader(infile)
+    dictionary = {rows[0]:rows[1:] for rows in reader}
+    for value in dictionary.values():
+        i = 0
+        while i < len(value):
+            if value[i] == '':
+                del value[i]
+                continue
+            i += 1
 
-for i in base_dict.keys():
-    key_list.append(i)
+
+# Choose random polish words to translate and save to list
+pl_words = []
+i=0
+while i < 3:
+    random_word = random.choice(list(dictionary))
+    if random_word not in pl_words:
+        pl_words.append(random_word)
+        i+=1
 
 
 
 
 class Card(Screen):
+    id = int()
     word = StringProperty()
     def __init__(self, **kwargs):
         super(Card, self).__init__(**kwargs)
-        self.test()
-        self.word = key_list[self.id]
+        self.word = pl_words[self.id]
 
-    def test(self):
-        self.id = int()
-       
     def check(self):
-        answer = self.ids["input"+str(self.id+1)].text
+        input = self.ids["input"+str(self.id+1)].text
         self.ids["input"+str(self.id+1)].readonly = True
-        if answer in list(base_dict[key_list[self.id]]) or answer == base_dict[key_list[self.id]]:
+        if input in list(dictionary[self.word]) or input == dictionary[self.word]:
             print("correct")
+            print(list(dictionary[self.word]))
         else:
             print("incorrect")
+            print(list(dictionary[self.word]))
 
 
 
 
 class Card1(Card):
-    def test(self):
-        self.id = 0
+    id = 0
 
 class Card2(Card):
-    def test(self):
-        self.id = 1
+    id = 1
 
 class Card3(Card):
-    def test(self):
-        self.id = 2
+    id = 2
 
 
 

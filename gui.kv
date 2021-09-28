@@ -8,8 +8,19 @@ ScreenManager:
     orientation: "vertical"
     size: root.width, root.height
 
+
+# Labels
 <WordLabel@Label>:
     font_size: 32
+
+<AnswerLabel@Label>:
+    font_size: 32
+
+<ResultLabel@Label>:
+    font_size: 32
+
+
+# Buttons
 <NextButton@Button>:
     text: "next"
     font_size: 32
@@ -18,17 +29,27 @@ ScreenManager:
     font_size: 32
 
 
+# Inputs
+<WordTextInput@TextInput>
+    multiline: False
+    readonly: False    
+
+
 <Card1>:
     name: "first"
     CardBoxLayout:
         WordLabel:
             text: root.word
-        TextInput:
+        WordTextInput:
             id: input1
-            multiline: False
-            readonly: False
         CheckButton:
             on_press: root.check()
+        AnswerLabel:
+            id: answer1
+            text: ""
+        ResultLabel:
+            id: result1
+            text: "0 / 20"
         NextButton:
             on_release:
                 root.manager.transition.direction = "left"
@@ -39,10 +60,8 @@ ScreenManager:
     CardBoxLayout:
         WordLabel:
             text: root.word
-        TextInput:
+        WordTextInput:
             id: input2
-            multiline: False
-            readonly: False
         CheckButton:
             on_press: root.check()
         NextButton:
@@ -55,10 +74,8 @@ ScreenManager:
     CardBoxLayout:
         WordLabel:
             text: root.word
-        TextInput:
+        WordTextInput:
             id: input3
-            multiline: False
-            readonly: False
         CheckButton:
             on_press: root.check()
         NextButton:
