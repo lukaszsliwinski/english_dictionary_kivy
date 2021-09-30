@@ -2,97 +2,738 @@ ScreenManager:
     Card1:
     Card2:
     Card3:
+    Card4:
+    Card5:
+    Card6:
+    Card7:
+    Card8:
+    Card9:
+    Card10:
+    Card11:
+    Card12:
+    Card13:
+    Card14:
+    Card15:
+    Card16:
+    Card17:
+    Card18:
+    Card19:
+    Card20:
 
-
-<CardBoxLayout@BoxLayout>:
+# Layouts
+<CardLayout@BoxLayout>:
     orientation: 'vertical'
-    size: root.width, root.height
 
+<TranslationLayout@BoxLayout>:
+    orientation: 'horizontal'
+    padding: 20
+    spacing: 20
+    size_hint: 1, None
+    size: root.width, 90 
+
+<AnswerLayout@BoxLayout>:
+    orientation: 'vertical'
+    spacing: 20
+    padding: 10
+    size_hint_y: 2
+
+<FooterLayout@FloatLayout>:
+    orientation: 'horizontal'
+    size_hint: 1, None
+    size: root.width, 90
 
 # Labels
 <WordLabel@Label>:
-    font_size: 32
+    font_size: 30
+    size_hint: 1, None
+    size: root.width, 100
 
 <AnswerLabel@Label>:
-    font_size: 32
+    font_size: 30
+    text: ''
+    valign: 'top'
 
-<ResultLabel@Label>:
-    font_size: 32
+    background_color: (40/255, 40/255, 40/255, 1)
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
 
+
+<CorrectLabel@Label>:
+    font_size: 30
+    text: ''
+    valign: 'center'
+    bold: True
+    size_hint_y: .2
+
+<ResultLabel@Label>
+    size: 75, 50
+    size_hint: None, None
+    font_size: 30
+    text: ' / 20'
+    text_size: self.size
+    halign: 'left'
+    valign: 'top'
+    pos_hint: {'x': 55/400, 'y': 10/90}
+
+<ResultValue@Label>:
+    size: 55, 50
+    size_hint: None, None
+    font_size: 30
+    text: ' / 20'
+    text_size: self.size
+    halign: 'right'
+    valign: 'top'
+    pos_hint: {'y': 10/90}
 
 # Buttons
 <NextButton@Button>:
-    text: 'next'
-    font_size: 32
-<CheckButton@Button>:
-    text: 'check'
-    font_size: 32
+    text: 'NEXT'
+    bold: True
+    font_size: 25
+    disabled: True
+    size: 100, 50
+    size_hint: None, None
+    pos_hint: {'x': 280/400, 'y': 20/90}
 
+    background_color: (0, 0, 0, 0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0/255, 0/255, 90/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [18]
+
+<CheckButton@Button>:
+    text: 'CHECK'
+    bold: True
+    font_size: 25
+    size: 100, 50
+    size_hint: None, None
+    pos_hint: {'x': 0.8}
+
+    background_color: (0, 0, 0, 0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0/255, 0/255, 90/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [18]
 
 # Inputs
 <WordTextInput@TextInput>
     multiline: False
-    readonly: False    
-
+    font_size: 20
+    readonly: False
+    size_hint_y: None
+    height: 35
+    pos_hint: {'y': 7.5/50}
 
 <Card1>:
     name: 'card1'
-    CardBoxLayout:
+    CardLayout:
         WordLabel:
             text: root.word
-        WordTextInput:
-            id: input1
-        CheckButton:
-            on_press: root.check()
-        AnswerLabel:
-            id: answer1
-            text: ''
-        ResultLabel:
-            id: result1
-            text: '0'
-        NextButton:
-            on_release:
-                root.pass_result()
-                root.manager.transition.direction = 'left'
-                app.root.current = 'card2'
-
+        TranslationLayout:
+            WordTextInput:
+                id: input1
+            CheckButton:
+                id: check1
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct1
+                text: ''
+            AnswerLabel:
+                id: answer1
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result1
+                text: '0'
+            ResultLabel:
+            NextButton:
+                id: next1
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card2'
 
 <Card2>:
     name: 'card2'
-    CardBoxLayout:
+    CardLayout:
         WordLabel:
             text: root.word
-        WordTextInput:
-            id: input2
-        CheckButton:
-            on_press: root.check()
-        AnswerLabel:
-            id: answer2
-            text: ''
-        ResultLabel:
-            id: result2
-        NextButton:
-            on_release:
-                root.pass_result()
-                root.manager.transition.direction = 'left'
-                app.root.current = 'card3'
+        TranslationLayout:
+            WordTextInput:
+                id: input2
+            CheckButton:
+                id: check2
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct2
+                text: ''
+            AnswerLabel:
+                id: answer2
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result2
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next2
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card3'
 
 <Card3>:
     name: 'card3'
-    CardBoxLayout:
+    CardLayout:
         WordLabel:
             text: root.word
-        WordTextInput:
-            id: input3
-        CheckButton:
-            on_press: root.check()
-        AnswerLabel:
-            id: answer3
-            text: ''
-        ResultLabel:
-            id: result3
-        NextButton:
-            on_release:
-                root.pass_result()
-                root.manager.transition.direction = 'left'
-                app.root.current = 'card1'
+        TranslationLayout:
+            WordTextInput:
+                id: input3
+            CheckButton:
+                id: check3
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct3
+                text: ''
+            AnswerLabel:
+                id: answer3
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result3
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next3
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card4'
+
+<Card4>:
+    name: 'card4'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input4
+            CheckButton:
+                id: check4
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct4
+                text: ''
+            AnswerLabel:
+                id: answer4
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result4
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next4
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card5'
+
+<Card5>:
+    name: 'card5'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input5
+            CheckButton:
+                id: check5
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct5
+                text: ''
+            AnswerLabel:
+                id: answer5
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result5
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next5
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card6'
+
+<Card6>:
+    name: 'card6'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input6
+            CheckButton:
+                id: check6
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct6
+                text: ''
+            AnswerLabel:
+                id: answer6
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result6
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next6
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card7'
+
+<Card7>:
+    name: 'card7'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input7
+            CheckButton:
+                id: check7
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct7
+                text: ''
+            AnswerLabel:
+                id: answer7
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result7
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next7
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card8'
+
+<Card8>:
+    name: 'card8'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input8
+            CheckButton:
+                id: check8
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct8
+                text: ''
+            AnswerLabel:
+                id: answer8
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result8
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next8
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card9'
+
+<Card9>:
+    name: 'card9'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input9
+            CheckButton:
+                id: check9
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct9
+                text: ''
+            AnswerLabel:
+                id: answer9
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result9
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next9
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card10'
+
+<Card10>:
+    name: 'card10'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input10
+            CheckButton:
+                id: check10
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct10
+                text: ''
+            AnswerLabel:
+                id: answer10
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result10
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next10
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card11'
+
+<Card11>:
+    name: 'card11'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input11
+            CheckButton:
+                id: check11
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct11
+                text: ''
+            AnswerLabel:
+                id: answer11
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result11
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next11
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card12'
+
+<Card12>:
+    name: 'card12'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input12
+            CheckButton:
+                id: check12
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct12
+                text: ''
+            AnswerLabel:
+                id: answer12
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result12
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next12
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card13'
+
+<Card13>:
+    name: 'card13'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input13
+            CheckButton:
+                id: check13
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct13
+                text: ''
+            AnswerLabel:
+                id: answer13
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result13
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next13
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card14'
+
+<Card14>:
+    name: 'card14'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input14
+            CheckButton:
+                id: check14
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct14
+                text: ''
+            AnswerLabel:
+                id: answer14
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result14
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next14
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card15'
+
+<Card15>:
+    name: 'card15'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input15
+            CheckButton:
+                id: check15
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct15
+                text: ''
+            AnswerLabel:
+                id: answer15
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result15
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next15
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card16'
+
+<Card16>:
+    name: 'card16'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input16
+            CheckButton:
+                id: check16
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct16
+                text: ''
+            AnswerLabel:
+                id: answer16
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result16
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next16
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card17'
+
+
+<Card17>:
+    name: 'card17'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input17
+            CheckButton:
+                id: check17
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct17
+                text: ''
+            AnswerLabel:
+                id: answer17
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result17
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next17
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card18'
+
+
+<Card18>:
+    name: 'card18'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input18
+            CheckButton:
+                id: check18
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct18
+                text: ''
+            AnswerLabel:
+                id: answer18
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result18
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next18
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card19'
+
+<Card19>:
+    name: 'card19'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input19
+            CheckButton:
+                id: check19
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct19
+                text: ''
+            AnswerLabel:
+                id: answer19
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result19
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next19
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card20'
+
+<Card20>:
+    name: 'card20'
+    CardLayout:
+        WordLabel:
+            text: root.word
+        TranslationLayout:
+            WordTextInput:
+                id: input20
+            CheckButton:
+                id: check20
+                on_press: root.check()
+        AnswerLayout:
+            CorrectLabel:
+                id: correct20
+                text: ''
+            AnswerLabel:
+                id: answer20
+                text: ''
+        FooterLayout:
+            ResultValue:
+                id: result20
+                text: ''
+            ResultLabel:
+            NextButton:
+                id: next20
+                on_release:
+                    root.pass_result()
+                    root.manager.transition.direction = 'left'
+                    app.root.current = 'card1'

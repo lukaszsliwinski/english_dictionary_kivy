@@ -2,7 +2,8 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty
-# from kivy.clock import mainthread
+from kivy.core.window import Window
+
 
 import csv, random
 
@@ -18,11 +19,10 @@ with open('dictionary.csv', mode='r', encoding='utf-8') as infile:
                 continue
             i += 1
 
-
 # Choose random polish words to translate and save to list
 pl_words = []
 i = 0
-while i < 3:
+while i < 20:
     random_word = random.choice(list(dictionary))
     if random_word not in pl_words:
         pl_words.append(random_word)
@@ -44,18 +44,28 @@ class Card(Screen):
 
         answer = ''
         
+        # Generate correct answer
         if len(dictionary[self.word]) == 1:
             answer = f'{dictionary[self.word][0]}'
         else:
-            for translation in dictionary[self.word]:
-                answer += f'{str(i+1)}. {translation}'
+            for i in range(len(dictionary[self.word])):
+                answer += f'{str(i+1)}. {dictionary[self.word][i]}'
                 answer += '\n'
+
+        # Print correct answer
         if input in list(dictionary[self.word]) or input == dictionary[self.word]:
-            self.ids[f'answer{str(self.id+1)}'].text = f'correct\n{answer}'
+            self.ids[f'correct{str(self.id+1)}'].text = 'CORRECT'
+            self.ids[f'correct{str(self.id+1)}'].color = (0, 1, 0, 1)
+            self.ids[f'answer{str(self.id+1)}'].text = answer
             correct_counter += 1
-            self.ids[f'result{str(self.id+1)}'].text = f'{correct_counter}'
+            self.ids[f'result{str(self.id+1)}'].text = str(correct_counter)
         else:
-            self.ids[f'answer{str(self.id+1)}'].text = f'incorrect\n{answer}'
+            self.ids[f'correct{str(self.id+1)}'].text = 'INCORRECT'
+            self.ids[f'correct{str(self.id+1)}'].color = (1, 0, 0, 1)
+            self.ids[f'answer{str(self.id+1)}'].text = answer
+
+        self.ids[f'next{str(self.id+1)}'].disabled = False
+        self.ids[f'check{str(self.id+1)}'].disabled = True
 
     def pass_result(self):
         try:
@@ -85,6 +95,57 @@ class Card2(Card):
 class Card3(Card):
     id = 2
 
+class Card4(Card):
+    id = 3
+
+class Card5(Card):
+    id = 4
+
+class Card6(Card):
+    id = 5
+
+class Card7(Card):
+    id = 6
+
+class Card8(Card):
+    id = 7
+
+class Card9(Card):
+    id = 8
+
+class Card10(Card):
+    id = 9
+
+class Card11(Card):
+    id = 10
+
+class Card12(Card):
+    id = 11
+
+class Card13(Card):
+    id = 12
+
+class Card14(Card):
+    id = 13
+
+class Card15(Card):
+    id = 14
+
+class Card16(Card):
+    id = 15
+
+class Card17(Card):
+    id = 16
+
+class Card18(Card):
+    id = 17
+
+class Card19(Card):
+    id = 18
+
+class Card20(Card):
+    id = 19
+
 
 
 
@@ -94,6 +155,7 @@ gui = Builder.load_file('gui.kv')
 
 class EnglishApp(App):
     def build(self):
+        Window.size = (400, 600)
         return gui
 
 if __name__ == '__main__':
