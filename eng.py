@@ -36,10 +36,11 @@ class Card(Screen):
     def __init__(self, **kwargs):
         super(Card, self).__init__(**kwargs)
         self.word = pl_words[self.id]
+        self.word_label = str(self.id+1) + ". " + self.word
 
     def check(self):
         input = self.ids[f'input{str(self.id+1)}'].text
-        correct_counter = int(self.ids[f'result{str(self.id+1)}'].text)
+        correct_counter = int(self.ids[f'score{str(self.id+1)}'].text)
         self.ids[f'input{str(self.id+1)}'].readonly = True
 
         answer = ''
@@ -58,7 +59,7 @@ class Card(Screen):
             self.ids[f'correct{str(self.id+1)}'].color = (0, 1, 0, 1)
             self.ids[f'answer{str(self.id+1)}'].text = answer
             correct_counter += 1
-            self.ids[f'result{str(self.id+1)}'].text = str(correct_counter)
+            self.ids[f'score{str(self.id+1)}'].text = str(correct_counter)
         else:
             self.ids[f'correct{str(self.id+1)}'].text = 'INCORRECT'
             self.ids[f'correct{str(self.id+1)}'].color = (1, 0, 0, 1)
@@ -67,10 +68,10 @@ class Card(Screen):
         self.ids[f'next{str(self.id+1)}'].disabled = False
         self.ids[f'check{str(self.id+1)}'].disabled = True
 
-    def pass_result(self):
+    def pass_score(self):
         try:
-            self.manager.get_screen(f'card{str(self.id+2)}').ids[f'result{str(self.id+2)}'].text \
-            = self.manager.get_screen(f'card{str(self.id+1)}').ids[f'result{str(self.id+1)}'].text
+            self.manager.get_screen(f'card{str(self.id+2)}').ids[f'score{str(self.id+2)}'].text \
+            = self.manager.get_screen(f'card{str(self.id+1)}').ids[f'score{str(self.id+1)}'].text
         except:
             pass
             # W tym miejscu dodać przesłanie liczby poprawnych odpowiedzi na kartę kończącą program
@@ -146,9 +147,8 @@ class Card19(Card):
 class Card20(Card):
     id = 19
 
-
-
-
+class Result(Card):
+    pass
 
 
 gui = Builder.load_file('gui.kv')

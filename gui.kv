@@ -19,6 +19,7 @@ ScreenManager:
     Card18:
     Card19:
     Card20:
+    Result:
 
 # Layouts
 <CardLayout@BoxLayout>:
@@ -41,6 +42,9 @@ ScreenManager:
     orientation: 'horizontal'
     size_hint: 1, None
     size: root.width, 90
+
+<ResultLayout@FloatLayout>:
+    orientation: 'vertical'
 
 # Labels
 <WordLabel@Label>:
@@ -69,7 +73,7 @@ ScreenManager:
     bold: True
     size_hint_y: .2
 
-<ResultLabel@Label>
+<ScoreLabel@Label>
     size: 75, 50
     size_hint: None, None
     font_size: 30
@@ -79,7 +83,7 @@ ScreenManager:
     valign: 'top'
     pos_hint: {'x': 55/400, 'y': 10/90}
 
-<ResultValue@Label>:
+<ScoreValue@Label>:
     size: 55, 50
     size_hint: None, None
     font_size: 30
@@ -88,6 +92,19 @@ ScreenManager:
     halign: 'right'
     valign: 'top'
     pos_hint: {'y': 10/90}
+
+<ResultLabel@Label>:
+    font_size: 40
+    size_hint: 1, None
+    size: root.width, 100
+    pos_hint: {'top': 500/600}
+
+
+<ResultValue@Label>:
+    font_size: 60
+    size_hint: 1, None
+    size: root.width, 100
+    pos_hint: {'top': 400/600}
 
 # Buttons
 <NextButton@Button>:
@@ -127,6 +144,25 @@ ScreenManager:
             pos: self.pos
             radius: [18]
 
+<AgainButton@Button>
+    text: "TRY AGAIN"
+    bold: True
+    font_size: 25
+    size: 200, 50
+    size_hint: None, None
+    pos_hint: {'x': 100/400, 'y': 200/600}
+
+    background_color: (0, 0, 0, 0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0/255, 0/255, 90/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [18]
+
+
 # Inputs
 <WordTextInput@TextInput>
     multiline: False
@@ -136,11 +172,17 @@ ScreenManager:
     height: 35
     pos_hint: {'y': 7.5/50}
 
+
+
+
+
+
+# Cards
 <Card1>:
     name: 'card1'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input1
@@ -155,22 +197,22 @@ ScreenManager:
                 id: answer1
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result1
+            ScoreValue:
+                id: score1
                 text: '0'
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next1
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
-                    app.root.current = 'card2'
+                    app.root.current = 'result'
 
 <Card2>:
     name: 'card2'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input2
@@ -185,14 +227,14 @@ ScreenManager:
                 id: answer2
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result2
+            ScoreValue:
+                id: score2
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next2
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card3'
 
@@ -200,7 +242,7 @@ ScreenManager:
     name: 'card3'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input3
@@ -215,14 +257,14 @@ ScreenManager:
                 id: answer3
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result3
+            ScoreValue:
+                id: score3
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next3
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card4'
 
@@ -230,7 +272,7 @@ ScreenManager:
     name: 'card4'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input4
@@ -245,14 +287,14 @@ ScreenManager:
                 id: answer4
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result4
+            ScoreValue:
+                id: score4
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next4
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card5'
 
@@ -260,7 +302,7 @@ ScreenManager:
     name: 'card5'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input5
@@ -275,14 +317,14 @@ ScreenManager:
                 id: answer5
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result5
+            ScoreValue:
+                id: score5
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next5
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card6'
 
@@ -290,7 +332,7 @@ ScreenManager:
     name: 'card6'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input6
@@ -305,14 +347,14 @@ ScreenManager:
                 id: answer6
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result6
+            ScoreValue:
+                id: score6
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next6
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card7'
 
@@ -320,7 +362,7 @@ ScreenManager:
     name: 'card7'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input7
@@ -335,14 +377,14 @@ ScreenManager:
                 id: answer7
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result7
+            ScoreValue:
+                id: score7
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next7
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card8'
 
@@ -350,7 +392,7 @@ ScreenManager:
     name: 'card8'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input8
@@ -365,14 +407,14 @@ ScreenManager:
                 id: answer8
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result8
+            ScoreValue:
+                id: score8
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next8
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card9'
 
@@ -380,7 +422,7 @@ ScreenManager:
     name: 'card9'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input9
@@ -395,14 +437,14 @@ ScreenManager:
                 id: answer9
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result9
+            ScoreValue:
+                id: score9
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next9
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card10'
 
@@ -410,7 +452,7 @@ ScreenManager:
     name: 'card10'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input10
@@ -425,14 +467,14 @@ ScreenManager:
                 id: answer10
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result10
+            ScoreValue:
+                id: score10
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next10
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card11'
 
@@ -440,7 +482,7 @@ ScreenManager:
     name: 'card11'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input11
@@ -455,14 +497,14 @@ ScreenManager:
                 id: answer11
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result11
+            ScoreValue:
+                id: score11
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next11
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card12'
 
@@ -470,7 +512,7 @@ ScreenManager:
     name: 'card12'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input12
@@ -485,14 +527,14 @@ ScreenManager:
                 id: answer12
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result12
+            ScoreValue:
+                id: score12
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next12
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card13'
 
@@ -500,7 +542,7 @@ ScreenManager:
     name: 'card13'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input13
@@ -515,14 +557,14 @@ ScreenManager:
                 id: answer13
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result13
+            ScoreValue:
+                id: score13
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next13
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card14'
 
@@ -530,7 +572,7 @@ ScreenManager:
     name: 'card14'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input14
@@ -545,14 +587,14 @@ ScreenManager:
                 id: answer14
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result14
+            ScoreValue:
+                id: score14
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next14
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card15'
 
@@ -560,7 +602,7 @@ ScreenManager:
     name: 'card15'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input15
@@ -575,14 +617,14 @@ ScreenManager:
                 id: answer15
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result15
+            ScoreValue:
+                id: score15
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next15
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card16'
 
@@ -590,7 +632,7 @@ ScreenManager:
     name: 'card16'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input16
@@ -605,14 +647,14 @@ ScreenManager:
                 id: answer16
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result16
+            ScoreValue:
+                id: score16
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next16
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card17'
 
@@ -621,7 +663,7 @@ ScreenManager:
     name: 'card17'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input17
@@ -636,14 +678,14 @@ ScreenManager:
                 id: answer17
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result17
+            ScoreValue:
+                id: score17
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next17
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card18'
 
@@ -652,7 +694,7 @@ ScreenManager:
     name: 'card18'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input18
@@ -667,14 +709,14 @@ ScreenManager:
                 id: answer18
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result18
+            ScoreValue:
+                id: score18
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next18
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card19'
 
@@ -682,7 +724,7 @@ ScreenManager:
     name: 'card19'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input19
@@ -697,14 +739,14 @@ ScreenManager:
                 id: answer19
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result19
+            ScoreValue:
+                id: score19
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next19
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card20'
 
@@ -712,7 +754,7 @@ ScreenManager:
     name: 'card20'
     CardLayout:
         WordLabel:
-            text: root.word
+            text: root.word_label
         TranslationLayout:
             WordTextInput:
                 id: input20
@@ -727,13 +769,26 @@ ScreenManager:
                 id: answer20
                 text: ''
         FooterLayout:
-            ResultValue:
-                id: result20
+            ScoreValue:
+                id: score20
                 text: ''
-            ResultLabel:
+            ScoreLabel:
             NextButton:
                 id: next20
                 on_release:
-                    root.pass_result()
+                    root.pass_score()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'card1'
+
+
+
+# Last cardS
+<Result>:
+    name: 'result'
+    ResultLayout:
+        ResultLabel:
+            text: 'Your result:'
+        ResultValue:
+            text: '10 / 20'
+        AgainButton:
+
