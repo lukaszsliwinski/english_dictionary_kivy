@@ -73,16 +73,8 @@ class Card(Screen):
             self.manager.get_screen(f'card{str(self.id+2)}').ids[f'score{str(self.id+2)}'].text \
             = self.manager.get_screen(f'card{str(self.id+1)}').ids[f'score{str(self.id+1)}'].text
         except:
-            pass
-            # W tym miejscu dodać przesłanie liczby poprawnych odpowiedzi na kartę kończącą program
-#
-#
-#
-#
-#
-#
-#
-#
+            total = self.manager.get_screen(f'card{str(self.id+1)}').ids[f'score{str(self.id+1)}'].text
+            self.manager.get_screen('result').ids['result_value'].text = f'{total} / 20'
 #
 # UWAGA! We wszystkich funkcjach ze zmiennymi po self.id należy dodać warunki brzegowe
 # Możliwe błędy przy ostatniej karcie

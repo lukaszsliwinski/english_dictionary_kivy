@@ -206,7 +206,7 @@ ScreenManager:
                 on_release:
                     root.pass_score()
                     root.manager.transition.direction = 'left'
-                    app.root.current = 'result'
+                    app.root.current = 'card2'
 
 <Card2>:
     name: 'card2'
@@ -778,7 +778,7 @@ ScreenManager:
                 on_release:
                     root.pass_score()
                     root.manager.transition.direction = 'left'
-                    app.root.current = 'card1'
+                    app.root.current = 'result'
 
 
 
@@ -789,6 +789,6 @@ ScreenManager:
         ResultLabel:
             text: 'Your result:'
         ResultValue:
-            text: '10 / 20'
+            id: result_value
+            text: ''
         AgainButton:
-
