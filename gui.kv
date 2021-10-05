@@ -97,14 +97,14 @@ ScreenManager:
     font_size: 40
     size_hint: 1, None
     size: root.width, 100
-    pos_hint: {'top': 500/600}
+    pos_hint: {'top': 400/600}
 
 
 <ResultValue@Label>:
     font_size: 60
     size_hint: 1, None
     size: root.width, 100
-    pos_hint: {'top': 400/600}
+    pos_hint: {'top': 300/600}
 
 # Buttons
 <NextButton@Button>:
@@ -144,24 +144,6 @@ ScreenManager:
             pos: self.pos
             radius: [18]
 
-<AgainButton@Button>
-    text: "TRY AGAIN"
-    bold: True
-    font_size: 25
-    size: 200, 50
-    size_hint: None, None
-    pos_hint: {'x': 100/400, 'y': 200/600}
-
-    background_color: (0, 0, 0, 0)
-    background_normal: ''
-    canvas.before:
-        Color:
-            rgba: (0/255, 0/255, 90/255, 1)
-        RoundedRectangle:
-            size: self.size
-            pos: self.pos
-            radius: [18]
-
 
 # Inputs
 <WordTextInput@TextInput>
@@ -177,11 +159,12 @@ ScreenManager:
 
 
 
-# Cards
+# Define 20 cards with unique ids
 <Card1>:
     name: 'card1'
     CardLayout:
         WordLabel:
+            id: word1
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -212,6 +195,7 @@ ScreenManager:
     name: 'card2'
     CardLayout:
         WordLabel:
+            id: word2
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -242,6 +226,7 @@ ScreenManager:
     name: 'card3'
     CardLayout:
         WordLabel:
+            id: word3
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -272,6 +257,7 @@ ScreenManager:
     name: 'card4'
     CardLayout:
         WordLabel:
+            id: word4
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -302,6 +288,7 @@ ScreenManager:
     name: 'card5'
     CardLayout:
         WordLabel:
+            id: word5
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -332,6 +319,7 @@ ScreenManager:
     name: 'card6'
     CardLayout:
         WordLabel:
+            id: word6
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -362,6 +350,7 @@ ScreenManager:
     name: 'card7'
     CardLayout:
         WordLabel:
+            id: word7
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -392,6 +381,7 @@ ScreenManager:
     name: 'card8'
     CardLayout:
         WordLabel:
+            id: word8
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -422,6 +412,7 @@ ScreenManager:
     name: 'card9'
     CardLayout:
         WordLabel:
+            id: word9
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -452,6 +443,7 @@ ScreenManager:
     name: 'card10'
     CardLayout:
         WordLabel:
+            id: word10
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -482,6 +474,7 @@ ScreenManager:
     name: 'card11'
     CardLayout:
         WordLabel:
+            id: word11
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -512,6 +505,7 @@ ScreenManager:
     name: 'card12'
     CardLayout:
         WordLabel:
+            id: word12
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -542,6 +536,7 @@ ScreenManager:
     name: 'card13'
     CardLayout:
         WordLabel:
+            id: word13
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -572,6 +567,7 @@ ScreenManager:
     name: 'card14'
     CardLayout:
         WordLabel:
+            id: word14
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -602,6 +598,7 @@ ScreenManager:
     name: 'card15'
     CardLayout:
         WordLabel:
+            id: word15
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -632,6 +629,7 @@ ScreenManager:
     name: 'card16'
     CardLayout:
         WordLabel:
+            id: word16
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -663,6 +661,7 @@ ScreenManager:
     name: 'card17'
     CardLayout:
         WordLabel:
+            id: word17
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -694,6 +693,7 @@ ScreenManager:
     name: 'card18'
     CardLayout:
         WordLabel:
+            id: word18
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -724,6 +724,7 @@ ScreenManager:
     name: 'card19'
     CardLayout:
         WordLabel:
+            id: word19
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -754,6 +755,7 @@ ScreenManager:
     name: 'card20'
     CardLayout:
         WordLabel:
+            id: word20
             text: root.word_label
         TranslationLayout:
             WordTextInput:
@@ -782,7 +784,7 @@ ScreenManager:
 
 
 
-# Last cardS
+# Last card with result
 <Result>:
     name: 'result'
     ResultLayout:
@@ -791,4 +793,3 @@ ScreenManager:
         ResultValue:
             id: result_value
             text: ''
-        AgainButton:

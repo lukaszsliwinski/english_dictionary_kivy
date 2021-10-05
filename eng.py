@@ -4,8 +4,9 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty
 from kivy.core.window import Window
 
+import csv
+import random
 
-import csv, random
 
 # Create dictionary from csv file
 with open('dictionary.csv', mode='r', encoding='utf-8') as infile:
@@ -19,25 +20,33 @@ with open('dictionary.csv', mode='r', encoding='utf-8') as infile:
                 continue
             i += 1
 
-# Choose random polish words to translate and save to list
-pl_words = []
-i = 0
-while i < 20:
-    random_word = random.choice(list(dictionary))
-    if random_word not in pl_words:
-        pl_words.append(random_word)
-        i += 1
 
+# Choose random polish words to translate and save to list
+def choose_words(dictionary):
+    pl_words = []
+    i = 0
+    while i < 20:
+        random_word = random.choice(list(dictionary))
+        if random_word not in pl_words:
+            pl_words.append(random_word)
+            i += 1
+    return pl_words
+
+# Create list with polish words to translate
+pl_words = choose_words(dictionary)
 
 
 class Card(Screen):
     id = int()
-    word = StringProperty()
+
     def __init__(self, **kwargs):
         super(Card, self).__init__(**kwargs)
+        # Take right word and send to instance by id
+        self.word = StringProperty()
         self.word = pl_words[self.id]
-        self.word_label = str(self.id+1) + ". " + self.word
+        self.word_label = f'{str(self.id+1)}. {self.word}'
 
+    # Check if answer is correct and print translation(s)
     def check(self):
         input = self.ids[f'input{str(self.id+1)}'].text
         correct_counter = int(self.ids[f'score{str(self.id+1)}'].text)
@@ -45,7 +54,7 @@ class Card(Screen):
 
         answer = ''
         
-        # Generate correct answer
+        # Generate correct answer(s)
         if len(dictionary[self.word]) == 1:
             answer = f'{dictionary[self.word][0]}'
         else:
@@ -53,7 +62,7 @@ class Card(Screen):
                 answer += f'{str(i+1)}. {dictionary[self.word][i]}'
                 answer += '\n'
 
-        # Print correct answer
+        # Print correct answer(s)
         if input in list(dictionary[self.word]) or input == dictionary[self.word]:
             self.ids[f'correct{str(self.id+1)}'].text = 'CORRECT'
             self.ids[f'correct{str(self.id+1)}'].color = (0, 1, 0, 1)
@@ -65,9 +74,11 @@ class Card(Screen):
             self.ids[f'correct{str(self.id+1)}'].color = (1, 0, 0, 1)
             self.ids[f'answer{str(self.id+1)}'].text = answer
 
+        # Change buttons states
         self.ids[f'next{str(self.id+1)}'].disabled = False
         self.ids[f'check{str(self.id+1)}'].disabled = True
 
+    # Pass actual score to another screen
     def pass_score(self):
         try:
             self.manager.get_screen(f'card{str(self.id+2)}').ids[f'score{str(self.id+2)}'].text \
@@ -75,10 +86,9 @@ class Card(Screen):
         except:
             total = self.manager.get_screen(f'card{str(self.id+1)}').ids[f'score{str(self.id+1)}'].text
             self.manager.get_screen('result').ids['result_value'].text = f'{total} / 20'
-#
-# UWAGA! We wszystkich funkcjach ze zmiennymi po self.id należy dodać warunki brzegowe
-# Możliwe błędy przy ostatniej karcie
 
+
+# Define 20 screens
 class Card1(Card):
     id = 0
 
