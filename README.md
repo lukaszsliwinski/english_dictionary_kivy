@@ -16,8 +16,8 @@ https://github.com/lukaszsliwinski/english_dictionary
 Python 3.8<br>
 Kivy 2.0
 
-## Setup and run
-Instalation (Windows):<br>
+## Setup and run (Windows)
+Instalation:<br>
 1 Install Python 3.8 from website:<br>
 https://www.python.org/downloads/release/python-380/<br>
 Important - remember to mark "Add Python 3.8 to PATH"!<br>
@@ -34,7 +34,9 @@ git clone https://github.com/lukaszsliwinski/english_dictionary_kivy
 ```bash
 cd english_dictionary_kivy
 ```
-5 In main directory run .py file
+5 In main directory run eng.py file
 ```bash
 python eng.py
 ```
+<br>
+To create your own database of words, you can edit dictionary.csv file
