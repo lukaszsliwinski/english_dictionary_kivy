@@ -19,7 +19,8 @@ Kivy 2.0
 ## Setup and run
 Instalation (Windows):<br>
 1 Install Python 3.8 from website:<br>
-https://www.python.org/downloads/release/python-380/<br><br>
+https://www.python.org/downloads/release/python-380/<br>
+![alt text](https://github.com/lukaszsliwinski/english_dictionary_kivy/blob/master/add-python-to-path.png?raw=true)<br><br>
 2 Install Kivy 2.0
 ```bash
 python -m pip install kivy[full]
