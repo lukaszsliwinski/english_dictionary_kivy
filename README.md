@@ -20,6 +20,7 @@ Kivy 2.0
 Instalation (Windows):<br>
 1 Install Python 3.8 from website:<br>
 https://www.python.org/downloads/release/python-380/<br>
+Important - remember to mark "Add Python 3.8 to PATH"!<br>
 ![alt text](https://github.com/lukaszsliwinski/english_dictionary_kivy/blob/master/add-python-to-path.png?raw=true)<br><br>
 2 Install Kivy 2.0
 ```bash
@@ -29,7 +30,11 @@ python -m pip install kivy[full]
 ```bash
 git clone https://github.com/lukaszsliwinski/english_dictionary_kivy
 ```
-4 In main directory run .py file
+4 Go into main directory
+```bash
+cd english_dictionary_kivy
+```
+5 In main directory run .py file
 ```bash
 python eng.py
 ```
