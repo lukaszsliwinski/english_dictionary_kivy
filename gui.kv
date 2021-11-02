@@ -1,3 +1,5 @@
+
+#:import Factory kivy.factory.Factory
 ScreenManager:
     Start:
     Main:
@@ -22,13 +24,44 @@ ScreenManager:
             size: 100, 40
             pos_hint: {'x': 85/400, 'y': 285/600}
         Button:
-            id: start_btn
-            text: 'START'
+            id: choose_btn
+            text: 'CHOOSE'
             bold: True
             font_size: 25
             size: 100, 50
             size_hint: None, None
             pos_hint: {'x': 215/400, 'y': 280/600}
+
+            background_color: (0, 0, 0, 0)
+            background_normal: ''
+            canvas.before:
+                Color:
+                    rgba: (0/255, 0/255, 90/255, 1)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [18]
+            on_release:
+                root.check_and_choose()
+
+        Label:
+            id: message
+            text: ''
+            font_size: 20
+            size_hint: 1, None
+            size: root.width, 100
+            pos_hint: {'y': 150/600}
+
+        Button:
+            id: start_btn
+            text: 'START'
+            bold: True
+            disabled: True
+            opacity: 0
+            font_size: 25
+            size: 180, 80
+            size_hint: None, None
+            pos_hint: {'x': 110/400, 'y': 30/600}
 
             background_color: (0, 0, 0, 0)
             background_normal: ''
@@ -131,7 +164,7 @@ ScreenManager:
                 pos_hint: {'y': 10/90}
             Label:
                 id: total
-                size: 75, 50
+                size: 100, 50
                 size_hint: None, None
                 font_size: 30
                 text: ''

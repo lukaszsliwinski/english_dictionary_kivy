@@ -22,6 +22,25 @@ with open('dictionary.csv', mode='r', encoding='utf-8') as infile:
 
 class Start(Screen):
     question = f'How many words to choose? (max {len(dictionary.keys())}):'
+    
+    def check_and_choose(self):
+        input_value = self.ids['start_input'].text
+        try:
+            input_value = int(input_value)
+            if input_value > len(dictionary.keys()):
+                self.ids['message'].text = f'There is only {len(dictionary.keys())} words in dictionary.'
+            elif input_value <= 0:
+                self.ids['message'].text = 'Minimum number is 1.'
+            else:
+                self.ids['start_btn'].disabled = False
+                self.ids['start_btn'].opacity = 1
+                self.ids['start_input'].readonly = True
+                self.ids['choose_btn'].disabled = True
+        except ValueError:
+            if input_value == '':
+                self.ids['message'].text = 'Enter the number of words.'
+            else:
+                self.ids['message'].text = 'It is not an integer number.'
 
 
 class Main(Screen):
