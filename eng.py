@@ -39,6 +39,9 @@ def choose_words(dictionary):
 # Create list with polish words to translate
 pl_words = choose_words(dictionary)
 
+class Start(Screen):
+    pass
+
 
 class Main(Screen):
     pl_words = choose_words(dictionary)

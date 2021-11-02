@@ -1,6 +1,48 @@
 ScreenManager:
+    Start:
     Main:
     Result:
+
+
+<Start>:
+    FloatLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'How many words to choose? (max 999):'
+            font_size: 20
+            size_hint: 1, None
+            size: root.width, 100
+            pos_hint: {'y': 320/600}
+        TextInput:
+            id: start_input
+            multiline: False
+            font_size: 20
+            size_hint: None, None
+            size: 100, 40
+            pos_hint: {'x': 85/400, 'y': 285/600}
+        Button:
+            id: start_btn
+            text: 'START'
+            bold: True
+            font_size: 25
+            size: 100, 50
+            size_hint: None, None
+            pos_hint: {'x': 215/400, 'y': 280/600}
+
+            background_color: (0, 0, 0, 0)
+            background_normal: ''
+            canvas.before:
+                Color:
+                    rgba: (0/255, 0/255, 90/255, 1)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [18]
+            on_release:
+                # root.send_result()
+                root.manager.transition.direction = 'left'
+                app.root.current = 'main'
+    
 
 
 # Main app card
