@@ -1,14 +1,15 @@
 ScreenManager:
     Start:
     Main:
-    Result:
+    End:
 
 
 <Start>:
+    name: 'start'
     FloatLayout:
         orientation: 'vertical'
         Label:
-            text: 'How many words to choose? (max 999):'
+            text: root.question
             font_size: 20
             size_hint: 1, None
             size: root.width, 100
@@ -39,7 +40,7 @@ ScreenManager:
                     pos: self.pos
                     radius: [18]
             on_release:
-                # root.send_result()
+                root.manager.get_screen('main').choose_words()
                 root.manager.transition.direction = 'left'
                 app.root.current = 'main'
     
@@ -55,7 +56,7 @@ ScreenManager:
             font_size: 30
             size_hint: 1, None
             size: root.width, 100
-            text: root.word_label
+            text: ''
         BoxLayout:
             orientation: 'horizontal'
             padding: 20
@@ -129,10 +130,11 @@ ScreenManager:
                 valign: 'top'
                 pos_hint: {'y': 10/90}
             Label:
+                id: total
                 size: 75, 50
                 size_hint: None, None
                 font_size: 30
-                text: root.total
+                text: ''
                 text_size: self.size
                 halign: 'left'
                 valign: 'top'
@@ -181,13 +183,13 @@ ScreenManager:
                 on_release:
                     root.send_result()
                     root.manager.transition.direction = 'left'
-                    app.root.current = 'result'
+                    app.root.current = 'end'
 
 
 
 # Last card with result
-<Result>:
-    name: 'result'
+<End>:
+    name: 'end'
     FloatLayout:
         orientation: 'vertical'
         Label:

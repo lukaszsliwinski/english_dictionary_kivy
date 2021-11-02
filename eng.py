@@ -1,7 +1,6 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
-from kivy.properties import StringProperty
 from kivy.core.window import Window
 
 import csv
@@ -21,41 +20,30 @@ with open('dictionary.csv', mode='r', encoding='utf-8') as infile:
             i += 1
 
 
-
-num_of_words = 3
-
-
-# Choose random polish words to translate and save to list
-def choose_words(dictionary):
-    pl_words = []
-    i = 0
-    while i < num_of_words:
-        random_word = random.choice(list(dictionary))
-        if random_word not in pl_words:
-            pl_words.append(random_word)
-            i += 1
-    return pl_words
-
-# Create list with polish words to translate
-pl_words = choose_words(dictionary)
-
 class Start(Screen):
-    pass
+    question = f'How many words to choose? (max {len(dictionary.keys())}):'
 
 
 class Main(Screen):
-    pl_words = choose_words(dictionary)
+    id = 0
+    correct_counter = 0
+    pl_words = []
 
-    def __init__(self, **kwargs):
-        super(Main, self).__init__(**kwargs)
-        self.id = 0
-        self.correct_counter = 0
-        self.word = StringProperty()
-        self.word = pl_words[self.id]
-        self.word_label = f'{str(self.id+1)}. {self.word}'
-        self.total = f' / {num_of_words}'
-    
-    # Check if answer is correct and print translation(s)
+
+    def choose_words(self):
+        self.num_of_words = int(self.manager.get_screen('start').ids['start_input'].text)
+        i = 0
+        while i < self.num_of_words:
+            random_word = random.choice(list(dictionary))
+            if random_word not in self.pl_words:
+                self.pl_words.append(random_word)
+                i += 1
+
+        self.word = self.pl_words[self.id]
+        self.ids['word'].text = f'{str(self.id+1)}. {self.word}'
+        self.ids['total'].text = f' / {self.num_of_words}'
+
+
     def check(self):
         input = self.ids['input'].text
         self.ids['input'].readonly = True
@@ -82,17 +70,17 @@ class Main(Screen):
             self.ids['answer'].text = answer
 
         # Change buttons states
-        self.ids['next'].disabled = False
         self.ids['check'].disabled = True
-        
-        if self.id == num_of_words - 1:
+        if self.id == self.num_of_words - 1:
             self.ids['result_btn'].disabled = False
             self.ids['result_btn'].opacity = 1
-            self.ids['next'].disabled = True
+        else:
+            self.ids['next'].disabled = False
+
 
     def next(self):
         self.id += 1
-        self.word = pl_words[self.id]
+        self.word = self.pl_words[self.id]
         self.ids['word'].text = f'{str(self.id+1)}. {self.word}'
         self.ids['input'].readonly = False
         self.ids['input'].text = ''
@@ -103,10 +91,12 @@ class Main(Screen):
         self.ids['next'].disabled = True
         self.ids['check'].disabled = False
 
-    def send_result(self):
-        self.manager.get_screen('result').ids['result_value'].text = f'{self.correct_counter} / {num_of_words}'
 
-class Result(Screen):
+    def send_result(self):
+        self.manager.get_screen('end').ids['result_value'].text = f'{self.correct_counter} / {self.num_of_words}'
+
+
+class End(Screen):
     pass
 
 
