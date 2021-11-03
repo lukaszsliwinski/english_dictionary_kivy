@@ -26,7 +26,7 @@ ScreenManager:
 
 # Start card layout for choose number of words
 <Start>:
-    name: 'start'
+    name: 'start_screen'
 
     FloatLayout:
         orientation: 'vertical'
@@ -53,7 +53,7 @@ ScreenManager:
             on_press: root.check_and_choose()
 
         Label:
-            id: message
+            id: message_lbl
             text: ''
             font_size: 20
             size_hint: 1, None
@@ -68,20 +68,20 @@ ScreenManager:
             disabled: True
             opacity: 0
             on_release:
-                root.manager.get_screen('main').choose_words()
+                root.manager.get_screen('main_screen').choose_words()
                 root.manager.transition.direction = 'left'
-                app.root.current = 'main'
+                app.root.current = 'main_screen'
 
 
 # Main app layout
 <Main>:
-    name: 'main'
+    name: 'main_screen'
 
     BoxLayout:
         orientation: 'vertical'
 
         Label:
-            id: word
+            id: word_lbl
             text: ''
             font_size: 30
             size_hint: 1, None
@@ -95,7 +95,7 @@ ScreenManager:
             size: root.width, 90 
 
             TextInput:
-                id: input
+                id: word_input
                 font_size: 20
                 size_hint_y: None
                 height: 35
@@ -116,7 +116,7 @@ ScreenManager:
             size_hint_y: 2
 
             Label:
-                id: correct
+                id: correct_lbl
                 text: ''
                 font_size: 30
                 bold: True
@@ -124,7 +124,7 @@ ScreenManager:
                 valign: 'center'
 
             Label:
-                id: answer
+                id: answer_lbl
                 text: ''
                 font_size: 30
                 valign: 'top'
@@ -145,7 +145,7 @@ ScreenManager:
             size: root.width, 90
 
             Label:
-                id: score
+                id: score_lbl
                 text: '0'
                 font_size: 30
                 text_size: self.size
@@ -156,7 +156,7 @@ ScreenManager:
                 valign: 'top'
 
             Label:
-                id: total
+                id: total_lbl
                 text: ''
                 font_size: 30
                 text_size: self.size
@@ -183,12 +183,12 @@ ScreenManager:
                 on_release:
                     root.send_result()
                     root.manager.transition.direction = 'left'
-                    app.root.current = 'end'
+                    app.root.current = 'end_screen'
 
 
 # Last card layout with result
 <End>:
-    name: 'end'
+    name: 'end_screen'
 
     FloatLayout:
         orientation: 'vertical'
@@ -201,7 +201,7 @@ ScreenManager:
             pos_hint: {'top': 400/600}
 
         Label:
-            id: result_value
+            id: result_lbl
             text: ''
             font_size: 60
             size_hint: 1, None

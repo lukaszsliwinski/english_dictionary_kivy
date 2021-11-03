@@ -28,9 +28,9 @@ class Start(Screen):
         try:
             input_value = int(input_value)
             if input_value > len(dictionary.keys()):
-                self.ids['message'].text = f'There is only {len(dictionary.keys())} words in dictionary.'
+                self.ids['message_lbl'].text = f'There is only {len(dictionary.keys())} words in dictionary.'
             elif input_value <= 0:
-                self.ids['message'].text = 'Minimum number is 1.'
+                self.ids['message_lbl'].text = 'Minimum number is 1.'
             else:
                 self.ids['start_btn'].disabled = False
                 self.ids['start_btn'].opacity = 1
@@ -38,9 +38,9 @@ class Start(Screen):
                 self.ids['choose_btn'].disabled = True
         except ValueError:
             if input_value == '':
-                self.ids['message'].text = 'Enter the number of words.'
+                self.ids['message_lbl'].text = 'Enter the number of words.'
             else:
-                self.ids['message'].text = 'It is not an integer number.'
+                self.ids['message_lbl'].text = 'It is not an integer number.'
 
 
 class Main(Screen):
@@ -50,7 +50,7 @@ class Main(Screen):
 
 
     def choose_words(self):
-        self.num_of_words = int(self.manager.get_screen('start').ids['start_input'].text)
+        self.num_of_words = int(self.manager.get_screen('start_screen').ids['start_input'].text)
         i = 0
         while i < self.num_of_words:
             random_word = random.choice(list(dictionary))
@@ -59,13 +59,13 @@ class Main(Screen):
                 i += 1
 
         self.word = self.pl_words[self.id]
-        self.ids['word'].text = f'{str(self.id+1)}. {self.word}'
-        self.ids['total'].text = f' / {self.num_of_words}'
+        self.ids['word_lbl'].text = f'{str(self.id+1)}. {self.word}'
+        self.ids['total_lbl'].text = f' / {self.num_of_words}'
 
 
     def check(self):
-        input = self.ids['input'].text
-        self.ids['input'].readonly = True
+        input = self.ids['word_input'].text
+        self.ids['word_input'].readonly = True
 
         # Generate correct answer(s)
         answer = ''
@@ -78,15 +78,15 @@ class Main(Screen):
 
         # Print correct answer(s)
         if input in list(dictionary[self.word]) or input == dictionary[self.word]:
-            self.ids['correct'].text = 'CORRECT'
-            self.ids['correct'].color = (0, 1, 0, 1)
-            self.ids['answer'].text = answer
+            self.ids['correct_lbl'].text = 'CORRECT'
+            self.ids['correct_lbl'].color = (0, 1, 0, 1)
+            self.ids['answer_lbl'].text = answer
             self.correct_counter += 1
-            self.ids['score'].text = str(self.correct_counter)
+            self.ids['score_lbl'].text = str(self.correct_counter)
         else:
-            self.ids['correct'].text = 'INCORRECT'
-            self.ids['correct'].color = (1, 0, 0, 1)
-            self.ids['answer'].text = answer
+            self.ids['correct_lbl'].text = 'INCORRECT'
+            self.ids['correct_lbl'].color = (1, 0, 0, 1)
+            self.ids['answer_lbl'].text = answer
 
         # Change buttons states
         self.ids['check_btn'].disabled = True
@@ -100,11 +100,11 @@ class Main(Screen):
     def next(self):
         self.id += 1
         self.word = self.pl_words[self.id]
-        self.ids['word'].text = f'{str(self.id+1)}. {self.word}'
-        self.ids['input'].readonly = False
-        self.ids['input'].text = ''
-        self.ids['correct'].text = ''
-        self.ids['answer'].text = ''
+        self.ids['word_lbl'].text = f'{str(self.id+1)}. {self.word}'
+        self.ids['word_input'].readonly = False
+        self.ids['word_input'].text = ''
+        self.ids['correct_lbl'].text = ''
+        self.ids['answer_lbl'].text = ''
         
         # Change buttons states
         self.ids['next_btn'].disabled = True
@@ -112,7 +112,7 @@ class Main(Screen):
 
 
     def send_result(self):
-        self.manager.get_screen('end').ids['result_value'].text = f'{self.correct_counter} / {self.num_of_words}'
+        self.manager.get_screen('end_screen').ids['result_lbl'].text = f'{self.correct_counter} / {self.num_of_words}'
 
 
 class End(Screen):
