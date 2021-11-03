@@ -1,48 +1,56 @@
-
-#:import Factory kivy.factory.Factory
 ScreenManager:
     Start:
     Main:
     End:
 
 
+# Define button style
+<BlueButton@Button>:
+    font_size: 25
+    bold: True
+    size_hint: None, None
+    size: 100, 50
+
+    background_color: (0, 0, 0, 0)
+    background_normal: ''
+    canvas.before:
+
+        Color:
+            rgba: (0/255, 0/255, 90/255, 1)
+
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [18]
+
+
+# Start card layout for choose number of words
 <Start>:
     name: 'start'
+
     FloatLayout:
         orientation: 'vertical'
+
         Label:
             text: root.question
             font_size: 20
             size_hint: 1, None
             size: root.width, 100
             pos_hint: {'y': 320/600}
+
         TextInput:
             id: start_input
-            multiline: False
             font_size: 20
             size_hint: None, None
             size: 100, 40
             pos_hint: {'x': 85/400, 'y': 285/600}
-        Button:
+            multiline: False
+
+        BlueButton:
             id: choose_btn
             text: 'CHOOSE'
-            bold: True
-            font_size: 25
-            size: 100, 50
-            size_hint: None, None
             pos_hint: {'x': 215/400, 'y': 280/600}
-
-            background_color: (0, 0, 0, 0)
-            background_normal: ''
-            canvas.before:
-                Color:
-                    rgba: (0/255, 0/255, 90/255, 1)
-                RoundedRectangle:
-                    size: self.size
-                    pos: self.pos
-                    radius: [18]
-            on_release:
-                root.check_and_choose()
+            on_press: root.check_and_choose()
 
         Label:
             id: message
@@ -52,89 +60,69 @@ ScreenManager:
             size: root.width, 100
             pos_hint: {'y': 150/600}
 
-        Button:
+        BlueButton:
             id: start_btn
             text: 'START'
-            bold: True
+            size: 180, 80
+            pos_hint: {'x': 110/400, 'y': 30/600}
             disabled: True
             opacity: 0
-            font_size: 25
-            size: 180, 80
-            size_hint: None, None
-            pos_hint: {'x': 110/400, 'y': 30/600}
-
-            background_color: (0, 0, 0, 0)
-            background_normal: ''
-            canvas.before:
-                Color:
-                    rgba: (0/255, 0/255, 90/255, 1)
-                RoundedRectangle:
-                    size: self.size
-                    pos: self.pos
-                    radius: [18]
             on_release:
                 root.manager.get_screen('main').choose_words()
                 root.manager.transition.direction = 'left'
                 app.root.current = 'main'
-    
 
 
-# Main app card
+# Main app layout
 <Main>:
     name: 'main'
+
     BoxLayout:
         orientation: 'vertical'
+
         Label:
             id: word
+            text: ''
             font_size: 30
             size_hint: 1, None
             size: root.width, 100
-            text: ''
+
         BoxLayout:
             orientation: 'horizontal'
             padding: 20
             spacing: 20
             size_hint: 1, None
             size: root.width, 90 
+
             TextInput:
                 id: input
-                multiline: False
                 font_size: 20
-                readonly: False
                 size_hint_y: None
                 height: 35
                 pos_hint: {'y': 7.5/50}
-            Button:
-                id: check
-                text: 'CHECK'
-                bold: True
-                font_size: 25
-                size: 100, 50
-                size_hint: None, None
-                pos_hint: {'x': 0.8}
+                multiline: False
+                readonly: False
 
-                background_color: (0, 0, 0, 0)
-                background_normal: ''
-                canvas.before:
-                    Color:
-                        rgba: (0/255, 0/255, 90/255, 1)
-                    RoundedRectangle:
-                        size: self.size
-                        pos: self.pos
-                        radius: [18]
+            BlueButton:
+                id: check_btn
+                text: 'CHECK'
+                pos_hint: {'x': 0.8}
                 on_press: root.check()
+
         BoxLayout:
             orientation: 'vertical'
             spacing: 20
             padding: 10
             size_hint_y: 2
+
             Label:
                 id: correct
                 text: ''
                 font_size: 30
-                valign: 'center'
                 bold: True
                 size_hint_y: .2
+                valign: 'center'
+
             Label:
                 id: answer
                 text: ''
@@ -143,94 +131,75 @@ ScreenManager:
 
                 background_color: (40/255, 40/255, 40/255, 1)
                 canvas.before:
+
                     Color:
                         rgba: self.background_color
+
                     Rectangle:
                         size: self.size
                         pos: self.pos
+
         FloatLayout:
             orientation: 'horizontal'
             size_hint: 1, None
             size: root.width, 90
+
             Label:
                 id: score
                 text: '0'
-                size: 55, 50
-                size_hint: None, None
                 font_size: 30
                 text_size: self.size
+                size_hint: None, None
+                size: 55, 50
+                pos_hint: {'y': 10/90}
                 halign: 'right'
                 valign: 'top'
-                pos_hint: {'y': 10/90}
+
             Label:
                 id: total
-                size: 100, 50
-                size_hint: None, None
-                font_size: 30
                 text: ''
+                font_size: 30
                 text_size: self.size
+                size_hint: None, None
+                size: 100, 50
+                pos_hint: {'x': 55/400, 'y': 10/90}
                 halign: 'left'
                 valign: 'top'
-                pos_hint: {'x': 55/400, 'y': 10/90}
-            Button:
-                id: next
-                text: 'NEXT'
-                bold: True
-                font_size: 25
-                disabled: True
-                size: 100, 50
-                size_hint: None, None
-                pos_hint: {'x': 280/400, 'y': 20/90}
 
-                background_color: (0, 0, 0, 0)
-                background_normal: ''
-                canvas.before:
-                    Color:
-                        rgba: (0/255, 0/255, 90/255, 1)
-                    RoundedRectangle:
-                        size: self.size
-                        pos: self.pos
-                        radius: [18]
-                on_release:
+            BlueButton:
+                id: next_btn
+                text: 'NEXT'
+                pos_hint: {'x': 280/400, 'y': 20/90}
+                disabled: True
+                on_press:
                     root.next()
-            Button:
+
+            BlueButton:
                 id: result_btn
                 text: 'RESULT'
-                bold: True
-                font_size: 25
+                pos_hint: {'x': 150/400, 'y': 20/90}
                 disabled: True
                 opacity: 0
-                size: 100, 50
-                size_hint: None, None
-                pos_hint: {'x': 150/400, 'y': 20/90}
-
-                background_color: (0, 0, 0, 0)
-                background_normal: ''
-                canvas.before:
-                    Color:
-                        rgba: (0/255, 0/255, 90/255, 1)
-                    RoundedRectangle:
-                        size: self.size
-                        pos: self.pos
-                        radius: [18]
                 on_release:
                     root.send_result()
                     root.manager.transition.direction = 'left'
                     app.root.current = 'end'
 
 
-
-# Last card with result
+# Last card layout with result
 <End>:
     name: 'end'
+
     FloatLayout:
         orientation: 'vertical'
+
         Label:
             text: 'Your result:'
             font_size: 40
             size_hint: 1, None
             size: root.width, 100
             pos_hint: {'top': 400/600}
+
         Label:
             id: result_value
             text: ''

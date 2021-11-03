@@ -89,12 +89,12 @@ class Main(Screen):
             self.ids['answer'].text = answer
 
         # Change buttons states
-        self.ids['check'].disabled = True
+        self.ids['check_btn'].disabled = True
         if self.id == self.num_of_words - 1:
             self.ids['result_btn'].disabled = False
             self.ids['result_btn'].opacity = 1
         else:
-            self.ids['next'].disabled = False
+            self.ids['next_btn'].disabled = False
 
 
     def next(self):
@@ -107,8 +107,8 @@ class Main(Screen):
         self.ids['answer'].text = ''
         
         # Change buttons states
-        self.ids['next'].disabled = True
-        self.ids['check'].disabled = False
+        self.ids['next_btn'].disabled = True
+        self.ids['check_btn'].disabled = False
 
 
     def send_result(self):
